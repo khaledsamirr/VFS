@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Virtual File System.iml" filepath="$PROJECT_DIR$/Virtual File System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VFS.iml" filepath="$PROJECT_DIR$/VFS.iml" />
     </modules>
   </component>
 </project>
