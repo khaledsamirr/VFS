@@ -1,1 +1,8 @@
-<root> 0 100
+<root> root
+root/file.txt
+
+<folder0> root/folder/f.txt
+
+
+
+ 1111100000
