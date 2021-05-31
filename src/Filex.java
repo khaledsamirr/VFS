@@ -6,7 +6,12 @@ class node {
         public node(int block){
             this.block=block;
         }
+        public node(int block,int next){
+        this.block=block;
+        this.next=next;
+    }
 }
+
 public class Filex {
     protected String name = "";
     protected String id = "";
