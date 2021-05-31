@@ -29,7 +29,7 @@ public class main {
             temp = sc.nextLine().split("\t");
             if (temp[0].charAt(0) != '$') {
                 if (temp[0].charAt(0) != '<') {
-                    sys.createfile(path + temp[0], Integer.valueOf(temp[1]), false);
+                    sys.createfile(path + temp[0], Integer.valueOf(temp[1]), false,"");
                 } else {
                     sys.createfolder(path + temp[0].substring(1, temp[0].length() - 1), false);
                     loadFile(sc, path + temp[0].substring(1, temp[0].length() - 1) + "/", sys, Dir.subDirectories.get(Dir.subDirectories.size() - 1));
@@ -60,14 +60,17 @@ public class main {
         System.out.println("2- Indexed Allocation");
         System.out.println("3- Linked Allocation");
         int choice = in.nextInt();
+        String t="";
         switch (choice) {
             case 1:
                 allocation = new Contiguous();
                 sys = new system(N, allocation);
+                t="Contiguous";
                 break;
             case 2:
                 allocation = new Indexed();
                 sys = new system(N, allocation);
+                t="Indexed";
                 break;
         }
 
@@ -87,7 +90,7 @@ public class main {
 
             if (cmds[0].equals("CreateFile")) {
                 if (cmds.length >= 3) {
-                    sys.createfile(cmds[1], Integer.parseInt(cmds[2]), true);
+                    sys.createfile(cmds[1], Integer.parseInt(cmds[2]), true,t);
                     VFS_Write = new FileWriter("backupFile.txt");
                     updateFile(VFS_Write, sys.root);
                     VFS_Write.close();

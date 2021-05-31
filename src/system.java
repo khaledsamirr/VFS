@@ -40,7 +40,7 @@ public class system {
         return null;
     }
 
-    public void createfile(String path, int n, Boolean mark) {
+    public void createfile(String path, int n, Boolean mark,String type) {
         boolean flag = true;
         String parts[] = path.split("/");
         if (n > this.N - this.totalspace)
@@ -50,6 +50,8 @@ public class system {
         if (found != null) {
             if (allocation.createFile(found, parts[parts.length - 1], n, periods, status)) {
                 this.totalspace += n;
+                if(type.equals("Indexed"))
+                    this.totalspace++;
                 flag = true;
             }
         }

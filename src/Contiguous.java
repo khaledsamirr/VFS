@@ -1,5 +1,3 @@
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,9 +19,9 @@ public class Contiguous implements Allocation {
     public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
         for (allocated period : periods) {
             if (filesize <= period.length && !period.status) {
-                ArrayList<Integer> allocatedBlocks = new ArrayList<>();
-                allocatedBlocks.add(period.start);
-                allocatedBlocks.add(period.start + filesize - 1);
+                ArrayList<node> allocatedBlocks = new ArrayList<>();
+                allocatedBlocks.add(new node(period.start));
+                allocatedBlocks.add(new node(period.start + filesize - 1));
                 Filex file = new Filex(name, filesize, allocatedBlocks);
                 dir.files.add(file);
                 for (int i = period.start; i < period.start + filesize; i++) {
@@ -53,7 +51,7 @@ public class Contiguous implements Allocation {
         for (Filex file : dir.files) {
             if (file.name.equals(name)) {
                 for (allocated period : periods) {
-                    if (period.start == file.allocatedBlocks.get(0)) {
+                    if (period.start == file.allocatedBlocks.get(0).block) {
                         period.status = false;
                         file.deleted = true;
                         for (int i = period.start; i <= period.end; i++) {
@@ -74,7 +72,7 @@ public class Contiguous implements Allocation {
         int space = 0;
         for (Filex file : dir.files) {
             for (allocated period : periods) {
-                if (period.start == file.allocatedBlocks.get(0)) {
+                if (period.start == file.allocatedBlocks.get(0).block) {
                     period.status = false;
                     file.deleted = true;
                     for (int i = period.start; i < period.end; i++) {

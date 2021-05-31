@@ -1,6 +1,2 @@
 <root>
-file.txt	100
-<folder>
-filez.s	10
-$
 $
