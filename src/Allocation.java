@@ -3,7 +3,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public interface Allocation {
-    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status);
+    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status, int totalSpace);
 
     public boolean createDirectory(Directory dir, String name);
 

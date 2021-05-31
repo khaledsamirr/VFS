@@ -40,17 +40,17 @@ public class system {
         return null;
     }
 
-    public void createfile(String path, int n, Boolean mark,String type) {
-        boolean flag = true;
+    public void createfile(String path, int n, Boolean mark, String type) {
+        boolean flag = false;
         String parts[] = path.split("/");
         if (n > this.N - this.totalspace)
             flag = false;
         Directory found;
         found = getDirectory(root, path, 0);
         if (found != null) {
-            if (allocation.createFile(found, parts[parts.length - 1], n, periods, status)) {
+            if (allocation.createFile(found, parts[parts.length - 1], n, periods, status, this.N - totalspace)) {
                 this.totalspace += n;
-                if(type.equals("Indexed"))
+                if (type.equals("Indexed"))
                     this.totalspace++;
                 flag = true;
             }
@@ -83,11 +83,9 @@ public class system {
         found = getDirectory(root, path, 0);
         if (found != null) {
             int deallocatedSize = allocation.deleteFile(found, parts[parts.length - 1], periods, status);
-            System.out.println("deallocated space" + deallocatedSize);
+            System.out.println("Deallocated space: " + deallocatedSize);
             if (deallocatedSize != 0) {
-                System.out.println(totalspace);
                 this.totalspace -= deallocatedSize;
-                System.out.println(totalspace);
                 flag = true;
             }
             if (flag)

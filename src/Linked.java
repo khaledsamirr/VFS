@@ -1,34 +1,36 @@
 import java.util.ArrayList;
 
-public class Linked implements Allocation{
+public class Linked implements Allocation {
     @Override
-    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
+    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status, int totalSpace) {
         ArrayList<node> allocatedBlocks = new ArrayList<>();
-        int start=0;
-        for (int i=0;i<status.size();i++){
-            if(!status.get(i)) {
-                start = i;
-                status.set(i,true);
-                filesize--;
-                break;
+        if (filesize <= totalSpace) {
+            int start = 0;
+            int orgFile = filesize;
+            for (int i = 0; i < status.size(); i++) {
+                if (!status.get(i)) {
+                    start = i;
+                    status.set(i, true);
+                    filesize--;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < status.size(); i++) {
+                if (!status.get(i)) {
+                    filesize--;
+                    status.set(i, true);
+                    allocatedBlocks.add(new node(start, i));
+                    start = i;
+                }
+
+                if (filesize == 0) {
+                    Filex file = new Filex(name, orgFile, allocatedBlocks);
+                    dir.files.add(file);
+                    return true;
+                }
             }
         }
-
-        for (int i = 0; i < status.size(); i++) {
-            if (!status.get(i)) {
-                filesize--;
-                status.set(i,true);
-                allocatedBlocks.add(new node(start,i));
-                start=i;
-            }
-
-            if (filesize == 0) {
-                Filex file = new Filex(name, filesize, allocatedBlocks);
-                dir.files.add(file);
-                return true;
-            }
-        }
-
         return false;
     }
 
@@ -46,7 +48,7 @@ public class Linked implements Allocation{
                     status.set(file.allocatedBlocks.get(i).block, false);
                 }
                 file.deleted = true;
-                return file.allocatedBlocks.size()-1;
+                return file.allocatedBlocks.size() - 1;
             }
         }
         return 0;

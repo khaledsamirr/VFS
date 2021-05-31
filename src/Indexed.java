@@ -2,26 +2,28 @@ import java.util.ArrayList;
 
 public class Indexed implements Allocation {
     @Override
-    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
-        ArrayList<node> allocatedBlocks = new ArrayList<>();
-        int idx=0;
-        filesize++;
-        for (int i = 0; i < status.size(); i++) {
-            if (!status.get(i)) {
-                status.set(i, true);
-                filesize--;
-                allocatedBlocks.add(new node(i));
-                idx=i;
-            }
-
-            if (filesize == 0) {
-                Filex file = new Filex(name, filesize, allocatedBlocks);
-                dir.files.add(file);
-                if(!status.get(idx+1)){
-                    allocatedBlocks.add(new node(idx+1));
-                    status.set(idx+1,true);
+    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status, int totalSpace) {
+        if (filesize + 1 <= totalSpace) {
+            ArrayList<node> allocatedBlocks = new ArrayList<>();
+            int idx = 0;
+            int orgFile = filesize;
+            for (int i = 0; i < status.size(); i++) {
+                if (!status.get(i)) {
+                    status.set(i, true);
+                    filesize--;
+                    allocatedBlocks.add(new node(i));
+                    idx = i;
                 }
-             return true;
+
+                if (filesize == 0) {
+                    Filex file = new Filex(name, orgFile, allocatedBlocks);
+                    dir.files.add(file);
+                    if (!status.get(idx + 1)) {
+                        allocatedBlocks.add(new node(idx + 1));
+                        status.set(idx + 1, true);
+                    }
+                    return true;
+                }
             }
         }
 
@@ -43,7 +45,7 @@ public class Indexed implements Allocation {
                     status.set(file.allocatedBlocks.get(i).block, false);
                 }
                 file.deleted = true;
-                return file.allocatedBlocks.size()-1;
+                return file.allocatedBlocks.size() - 1;
             }
         }
         return 0;

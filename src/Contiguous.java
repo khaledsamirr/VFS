@@ -16,7 +16,7 @@ class compartor implements Comparator<allocated> {
 
 public class Contiguous implements Allocation {
     @Override
-    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
+    public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status, int totalSpace) {
         for (allocated period : periods) {
             if (filesize <= period.length && !period.status) {
                 ArrayList<node> allocatedBlocks = new ArrayList<>();

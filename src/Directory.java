@@ -31,8 +31,9 @@ public class Directory {
                 for (int i = 0; i < level + 5; i++) {
                     System.out.print(" ");
                 }
-                System.out.println(file.name
-                        + (file.deleted ? " is not found!" : ""));
+                if (!file.deleted) {
+                    System.out.println(file.name);
+                }
             }
             for (int i = 0; i < subDirectories.size(); i++) {
                 subDirectories.get(i).printDirectoryStructure(level + 6);
@@ -40,6 +41,7 @@ public class Directory {
         } else
             System.out.print("<" + name + "> is not found!");
 
+        System.out.println("\n");
     }
 
     public ArrayList<Directory> getSubDirectories() {
