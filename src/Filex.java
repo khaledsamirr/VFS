@@ -8,12 +8,17 @@ public class Filex {
     protected ArrayList<Integer> allocatedBlocks = new ArrayList<Integer>();
     protected boolean deleted;
 
-    public Filex(){}
+    public Filex() {
+    }
+
+    public Filex(String name) {
+        this.name = name;
+    }
 
     public Filex(String name, ArrayList<Integer> allocatedBlocks) {
         this.name = name;
         this.allocatedBlocks = allocatedBlocks;
-        deleted=false;
+        deleted = false;
     }
 
 }

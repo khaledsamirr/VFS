@@ -8,13 +8,18 @@ public class Directory {
     protected ArrayList<Filex> files = new ArrayList<Filex>();
     protected ArrayList<Directory> subDirectories = new ArrayList<Directory>();
     protected boolean deleted = false;
-    public Directory(){}
+
+    public Directory() {
+    }
+
     public Directory(String name) {
         this.name = name;
     }
+
     public void setFiles(ArrayList<Filex> files) {
         this.files = files;
     }
+
     public void printDirectoryStructure(int level) {
         for (int i = 0; i < level; i++) {
             System.out.print(" ");

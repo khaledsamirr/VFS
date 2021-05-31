@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-class compartor implements Comparator<allocated>{
+class compartor implements Comparator<allocated> {
 
     @Override
     public int compare(allocated o1, allocated o2) {
-        if(o1.length>o2.length)
+        if (o1.length > o2.length)
             return 1;
-        if(o1.length<o2.length)
+        if (o1.length < o2.length)
             return -1;
         return 0;
     }
 }
+
 public class Contiguous implements Allocation {
     @Override
     public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
@@ -58,7 +59,7 @@ public class Contiguous implements Allocation {
                         for (int i = period.start; i <= period.end; i++) {
                             status.set(i, false);
                         }
-                        return (period.end- period.start)+1;
+                        return (period.end - period.start) + 1;
                     }
                 }
                 return 0;
@@ -95,8 +96,8 @@ public class Contiguous implements Allocation {
     //   public void write(system sys, String filePath) {
     //}
 
- //   @Override
-  // public void readTree(system sys, ObjectInputStream os, int currentSize, int n) throws ClassNotFoundException, IOException {
+    //   @Override
+    // public void readTree(system sys, ObjectInputStream os, int currentSize, int n) throws ClassNotFoundException, IOException {
 
     //}
 }

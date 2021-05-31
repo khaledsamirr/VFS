@@ -1,8 +1,4 @@
-<root> root
-root/file.txt
-
-<folder0> root/folder/f.txt
-
-
-
- 1111100000
+<root>
+file.txt
+file.txt
+$
