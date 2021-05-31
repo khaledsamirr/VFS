@@ -3,20 +3,20 @@ import java.util.ArrayList;
 public class Indexed implements Allocation {
     @Override
     public boolean createFile(Directory dir, String name, int filesize, ArrayList<allocated> periods, ArrayList<Boolean> status) {
-            ArrayList<Integer> allocatedBlocks = new ArrayList<>();
-            for (int i = 0; i < status.size(); i++) {
-                if (!status.get(i)) {
-                    status.set(i, true);
-                    filesize--;
-                    allocatedBlocks.add(i);
-                }
-                if (filesize == 0) {
-                    Filex file = new Filex(name, allocatedBlocks);
-                    dir.files.add(file);
-                    return true;
-                }
+        ArrayList<Integer> allocatedBlocks = new ArrayList<>();
+        for (int i = 0; i < status.size(); i++) {
+            if (!status.get(i)) {
+                status.set(i, true);
+                filesize--;
+                allocatedBlocks.add(i);
             }
-            return false;
+            if (filesize == 0) {
+                Filex file = new Filex(name, filesize, allocatedBlocks);
+                dir.files.add(file);
+                return true;
+            }
+        }
+        return false;
     }
 
 

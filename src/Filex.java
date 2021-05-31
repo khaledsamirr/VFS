@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Filex {
     protected String name = "";
     protected String id = "";
-    protected double size = 0.0;
+    protected int size = 0;
     protected ArrayList<Integer> allocatedBlocks = new ArrayList<Integer>();
     protected boolean deleted;
 
@@ -15,8 +15,9 @@ public class Filex {
         this.name = name;
     }
 
-    public Filex(String name, ArrayList<Integer> allocatedBlocks) {
+    public Filex(String name, int size, ArrayList<Integer> allocatedBlocks) {
         this.name = name;
+        this.size = size;
         this.allocatedBlocks = allocatedBlocks;
         deleted = false;
     }

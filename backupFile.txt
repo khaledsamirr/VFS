@@ -1,14 +1,6 @@
 <root>
-file.txt
-file.txt
-n.txt
-f.txt
-k.txt
-<f>
-$
-<f>
-$
+file.txt	100
 <folder>
-f.txt
+filez.s	10
 $
 $

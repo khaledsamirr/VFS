@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class main {
 
     public static void updateFile(FileWriter VFS, Directory Dir) throws IOException {
-        VFS.write("<" + Dir.name + ">" /*+ "\t" + Dir.id + "\t" + Dir.size */ + "\n");
+        VFS.write("<" + Dir.name + ">" + "\n");
         for (int i = 0; i < Dir.files.size(); i++) {
             if (Dir.files.get(i).deleted == false) {
-                VFS.write(Dir.files.get(i).name + /*"\t" + Dir.id + "\t" + Dir.size +*/ "\n");
+                VFS.write(Dir.files.get(i).name + "\t" + Dir.files.get(i).size + "\n");
             }
         }
         for (int i = 0; i < Dir.subDirectories.size(); i++) {
@@ -23,22 +23,23 @@ public class main {
         VFS.write("$\n");
     }
 
-    public static void loadFile(Scanner sc, Directory Dir) {
+    public static void loadFile(Scanner sc, String path, system sys, Directory Dir) {
         String[] temp;
         while (sc.hasNext()) {
-            temp = sc.nextLine().split(" ");
+            temp = sc.nextLine().split("\t");
             if (temp[0].charAt(0) != '$') {
                 if (temp[0].charAt(0) != '<') {
-                    Dir.files.add(new Filex(temp[0]));
+                    sys.createfile(path + temp[0], Integer.valueOf(temp[1]), false);
                 } else {
-                    Dir.subDirectories.add(new Directory(temp[0].substring(1, temp[0].length() - 1)));
-                    loadFile(sc, Dir.subDirectories.get(Dir.subDirectories.size() - 1));
+                    sys.createfolder(path + temp[0].substring(1, temp[0].length() - 1), false);
+                    loadFile(sc, path + temp[0].substring(1, temp[0].length() - 1) + "/", sys, Dir.subDirectories.get(Dir.subDirectories.size() - 1));
                 }
             } else {
                 return;
             }
         }
     }
+
 
     public static void main(String args[]) throws IOException {
         Directory rootDirectory = new Directory();
@@ -73,8 +74,9 @@ public class main {
         Scanner fileSC = new Scanner(VFS_Read);
         if (fileSC.hasNext()) {
             String temp = fileSC.nextLine();
-            if (temp.equals("<root>")) {
-                loadFile(fileSC, sys.root);
+            temp = temp.substring(1, temp.length() - 1);
+            if (temp.equals("root")) {
+                loadFile(fileSC, temp + "/", sys, sys.root);
             }
         }
         String path = "";
@@ -85,14 +87,14 @@ public class main {
 
             if (cmds[0].equals("CreateFile")) {
                 if (cmds.length >= 3) {
-                    sys.createfile(cmds[1], Integer.parseInt(cmds[2]));
+                    sys.createfile(cmds[1], Integer.parseInt(cmds[2]), true);
                     VFS_Write = new FileWriter("backupFile.txt");
                     updateFile(VFS_Write, sys.root);
                     VFS_Write.close();
                 } else
                     System.out.println("wrong inputs!");
             } else if (cmds[0].equals("CreateFolder")) {
-                sys.createfolder(cmds[1]);
+                sys.createfolder(cmds[1], true);
                 VFS_Write = new FileWriter("backupFile.txt");
                 updateFile(VFS_Write, sys.root);
                 VFS_Write.close();

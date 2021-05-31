@@ -24,7 +24,7 @@ public class Contiguous implements Allocation {
                 ArrayList<Integer> allocatedBlocks = new ArrayList<>();
                 allocatedBlocks.add(period.start);
                 allocatedBlocks.add(period.start + filesize - 1);
-                Filex file = new Filex(name, allocatedBlocks);
+                Filex file = new Filex(name, filesize, allocatedBlocks);
                 dir.files.add(file);
                 for (int i = period.start; i < period.start + filesize; i++) {
                     status.set(i, true);

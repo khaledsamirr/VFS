@@ -40,7 +40,7 @@ public class system {
         return null;
     }
 
-    public void createfile(String path, int n) {
+    public void createfile(String path, int n, Boolean mark) {
         boolean flag = true;
         String parts[] = path.split("/");
         if (n > this.N - this.totalspace)
@@ -53,19 +53,23 @@ public class system {
                 flag = true;
             }
         }
-        if (flag && found != null)
-            System.out.println("File is created successfully!");
-        else
+        if (flag && found != null) {
+            if (mark == true) {
+                System.out.println("File is created successfully!");
+            }
+        } else
             System.out.println("Can't create file!");
     }
 
-    public void createfolder(String path) {
+    public void createfolder(String path, Boolean mark) {
         String[] parts = path.split("/");
         Directory found;
         found = getDirectory(root, path, 0);
         if (found != null)
             if (allocation.createDirectory(found, parts[parts.length - 1])) {
-                System.out.println("Folder is created successfully!");
+                if (mark == true) {
+                    System.out.println("Folder is created successfully!");
+                }
             } else
                 System.out.println("Can't create folder!");
     }
