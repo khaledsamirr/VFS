@@ -9,6 +9,7 @@ public class Linked implements Allocation{
             if(!status.get(i)) {
                 start = i;
                 status.set(i,true);
+                filesize--;
                 break;
             }
         }
@@ -16,6 +17,7 @@ public class Linked implements Allocation{
         for (int i = 0; i < status.size(); i++) {
             if (!status.get(i)) {
                 filesize--;
+                status.set(i,true);
                 allocatedBlocks.add(new node(start,i));
                 start=i;
             }
