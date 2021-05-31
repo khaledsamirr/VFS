@@ -72,8 +72,11 @@ public class system {
         found = getDirectory(root, path, 0);
         if (found != null) {
             int deallocatedSize = allocation.deleteFile(found, parts[parts.length - 1], periods, status);
+            System.out.println("deallocated space"+deallocatedSize);
             if (deallocatedSize != 0) {
+                System.out.println(totalspace);
                 this.totalspace -= deallocatedSize;
+                System.out.println(totalspace);
                 flag=true;
             }
             if(flag)
@@ -100,8 +103,8 @@ public class system {
             System.out.println("Can't delete folder!");
     }
     public void DisplayDiskStatus() {
-        System.out.println("Empty space: " + ((N-totalspace)<0?N-totalspace :(N- totalspace)) + " KB");
-        System.out.println("Allocated space:" + (totalspace<0?totalspace :totalspace) + " KB");
+        System.out.println("Empty space: " + (N-totalspace) + " KB");
+        System.out.println("Allocated space:" + (totalspace) + " KB");
         System.out.println("Blocks status in the Disk:");
         for (int i = 0; i < status.size(); i++) {
             System.out.println("Blocks:[" + i + "] is " + (status.get(i) ? "Allocated" : "Empty"));

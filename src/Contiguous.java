@@ -58,7 +58,7 @@ public class Contiguous implements Allocation {
                         for (int i = period.start; i <= period.end; i++) {
                             status.set(i, false);
                         }
-                        return period.length;
+                        return (period.end- period.start)+1;
                     }
                 }
                 return 0;
