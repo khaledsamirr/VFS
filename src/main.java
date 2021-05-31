@@ -65,6 +65,9 @@ public class main {
                 sys = new system(N, allocation);
                 break;
             case 2:
+                allocation = new Indexed();
+                sys = new system(N, allocation);
+                break;
         }
 
         Scanner fileSC = new Scanner(VFS_Read);
